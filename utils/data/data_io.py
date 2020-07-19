@@ -32,10 +32,6 @@ def load_model(net, load_dir, load_weights=True, force_parallel=True):
                     model_dict[k] = pretrained_dict[k]
         # net.load_state_dict(checkpoint['state_dict'])
         net.load_state_dict(model_dict)
-    if torch.cuda.is_available() and torch.cuda.device_count() > 1 and force_parallel:
-        net = torch.nn.DataParallel(net).cuda()
-    elif torch.cuda.is_available() and torch.cuda.device_count() == 1:
-        net = net.cuda()
     return net
 
 

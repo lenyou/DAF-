@@ -24,10 +24,14 @@ class MatrixLoss(nn.Module):
         # print (target_result == 0)
         same_target = (target_result == 0)
         diff_target = (target_result != 0)
-        same_distance = (same_target*input_result).mean(1)
-        diff_distance = (diff_target*input_result).mean(1)
-        # print ("same: ",same_distance)
-        # print ("diff: ",diff_distance)
+        same_distance = (same_target*input_result).sum(1)
+        diff_distance = (diff_target*input_result).sum(1)
+        same_target_mask = same_target.sum(1)
+        diff_target_mask = diff_target.sum(1)
+        same_distance = same_distance/same_target_mask 
+        diff_distance = diff_distance/diff_target_mask
+        #print ("same: ",same_distance)
+        #print ("diff: ",diff_distance)
         margin_distance = (self.interval+same_distance-diff_distance)
         margin_mask = margin_distance>0
         margin_loss = (margin_distance*margin_mask).sum()

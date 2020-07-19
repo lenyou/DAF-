@@ -64,26 +64,26 @@ def generate_Pic(info):
         start_row = last_row
     toc = time.time()
     return canvas.astype("uint8")
-    
+
 if __name__ == "__main__":
-    target_path = "./train_jpg_1"
+    target_path = "./val_jpg_1"
     if not os.path.exists(target_path):
         os.mkdir(target_path)
-    train_author_path = "./train/train_author.json"
-    train_pub_path = "./train/train_pub.json"
+    train_author_path = "/media/liu/large_disk/advanced_machine_learning/sna_data/sna_valid_author_raw.json"
+    train_pub_path = "/media/liu/large_disk/advanced_machine_learning/sna_data/sna_valid_pub.json"
     train_author_dict = load_json(train_author_path)
     train_pub_dict = load_json(train_pub_path)
     author_id = 0
     for key in train_author_dict:
-        for key1 in train_author_dict[key]:
-            if len(train_author_dict[key][key1])<10:
-                continue
-            author_id+=1
-            folder_path = os.path.join(target_path,"%07d"%author_id)
-            if not os.path.exists(folder_path):
-                os.mkdir(folder_path)
-            for paper_key in train_author_dict[key][key1]:
-                values = train_pub_dict[paper_key]
-                canvas = generate_Pic(values)
-                cv2.imwrite(os.path.join(folder_path,"%07d_%s.jpg"%(author_id,paper_key)),canvas*255)
+        if len(train_author_dict[key])<10:
+            continue
+        author_id+=1
+        folder_path = os.path.join(target_path,"%07d"%author_id)
+        if not os.path.exists(folder_path):
+            os.mkdir(folder_path)
+        for paper_key in train_author_dict[key]:
+            values = train_pub_dict[paper_key]
+            canvas = generate_Pic(values)
+            cv2.imwrite(os.path.join(folder_path,"%07d_%s.jpg"%(author_id,paper_key)),canvas*255)
     print (author_id)
+    
