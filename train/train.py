@@ -56,7 +56,7 @@ parser.add_argument('--heads', type=str, default="1,1,1",
 parser.add_argument('--batch', type=int, default=2048, help="Batch size")
 parser.add_argument('--dim', type=int, default=64, help="Embedding dimension")
 parser.add_argument('--check-point', type=int, default=10, help="Eheck point")
-parser.add_argument('--instance-normalization', action='store_true', default=False,
+parser.add_argument('--instance-normalization', action='store_true', default=True,
                     help="Enable instance normalization")
 parser.add_argument('--shuffle', action='store_true', default=False, help="Shuffle dataset")
 parser.add_argument('--file-dir', type=str, required=True, help="Input file directory")
